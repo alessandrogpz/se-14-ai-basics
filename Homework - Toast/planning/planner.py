@@ -42,9 +42,27 @@ class Planner():
 
             returns (path, step_count) where path is a list of actions to the goal and step_count is the number of states extended
         """
+
+        # A hash map that ignore states already seen / visited
+        def state_key(state):
+            return (state["toaster_has_power"], state["toaster_is_on"], state["bread_location"], state["bread_state"])
+
+        open_list = [(start_state,[])]
+        seen = {state_key(start_state)}
         step_count = 0
-        
-        # TODO: implement me
+
+        while len(open_list) > 0:
+            state, path = open_list.pop(0)                                          # remove top queue element (pop() returns the element popped)
+            step_count += 1  
+            if Planning_Problem.goal(state):
+                        return path, step_count
+            else:
+                for action in Planning_Problem.actions:                                               
+                    next_state = Planning_Problem.state_transition(state, action)   # create a new state
+                    if state_key(next_state) not in seen:                           # check if same state already happned, if so skip it, 
+                        seen.add(state_key(next_state))                             #                                      otherwise append to state_key
+                        open_list.append((next_state, path + [action]  ))           # append new action to path & push it down the queue
+
 
         return None, step_count
     
