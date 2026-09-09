@@ -34,8 +34,41 @@ class Optimization_Algorithms():
         """
             calculate the best values for toast and wait duration by implementing Hill Climbing
         """
-        # TODO: implement me
-        return None, float('-inf')
+        def _custom_utility(toast_duration, wait_duration):
+            return Optimization_Problem.utility(toast_duration, wait_duration), toast_duration, wait_duration
+
+        def _in_range(toast_duration, wait_duration):
+            return 1 <= toast_duration <= 100 and 1 <= wait_duration <= 100
+
+        # Initial state
+        toast_d = 50
+        wait_d = 50
+        current = _custom_utility(toast_d, wait_d)
+
+        while True:
+            neighbours = [(toast_d + 1, wait_d),
+                          (toast_d - 1, wait_d),
+                          (toast_d, wait_d + 1),
+                          (toast_d, wait_d - 1)]
+
+            all_utilities = [current]
+
+            # Append valid neighbours to all_utilities
+            for next_toast, next_wait in neighbours:
+                if _in_range(next_toast, next_wait):
+                    all_utilities.append(_custom_utility(next_toast, next_wait))
+
+            # Compare neighbours - the first one (best_utilities) is the MSD
+            best_utility, best_toast, best_wait = max(all_utilities)
+
+            # No better neighbours (found local best)
+            if best_utility <= current[0]:
+                return (toast_d, wait_d), current[0]
+
+            # Found a better neighbour, restart search
+            current = (best_utility, best_toast, best_wait)
+            toast_d = best_toast
+            wait_d = best_wait
 
     @classmethod
     def gradient_ascent(cls):
