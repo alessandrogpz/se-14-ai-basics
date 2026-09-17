@@ -1,0 +1,39 @@
+max_depth = 1 min_samples_leaf = 1 | train 79.21 % | test 74.3 %
+max_depth = 1 min_samples_leaf = 5 | train 79.21 % | test 74.3 %
+max_depth = 1 min_samples_leaf = 10 | train 79.21 % | test 74.3 %
+max_depth = 1 min_samples_leaf = 20 | train 79.21 % | test 74.3 %
+max_depth = 2 min_samples_leaf = 1 | train 80.2 % | test 73.74 %
+max_depth = 2 min_samples_leaf = 5 | train 80.2 % | test 73.74 %
+max_depth = 2 min_samples_leaf = 10 | train 80.2 % | test 73.74 %
+max_depth = 2 min_samples_leaf = 20 | train 80.2 % | test 73.74 %
+max_depth = 3 min_samples_leaf = 1 | train 83.99 % | test 80.45 %
+max_depth = 3 min_samples_leaf = 5 | train 83.99 % | test 80.45 %
+max_depth = 3 min_samples_leaf = 10 | train 83.99 % | test 80.45 %
+max_depth = 3 min_samples_leaf = 20 | train 83.01 % | test 79.89 %
+max_depth = 4 min_samples_leaf = 1 | train 83.99 % | test 80.45 %
+max_depth = 4 min_samples_leaf = 5 | train 83.99 % | test 80.45 %
+max_depth = 4 min_samples_leaf = 10 | train 83.99 % | test 80.45 %
+max_depth = 4 min_samples_leaf = 20 | train 83.01 % | test 79.89 %
+max_depth = 5 min_samples_leaf = 1 | train 85.25 % | test 78.21 %
+max_depth = 5 min_samples_leaf = 5 | train 84.97 % | test 78.21 %
+max_depth = 5 min_samples_leaf = 10 | train 84.97 % | test 78.21 %
+max_depth = 5 min_samples_leaf = 20 | train 84.27 % | test 77.09 %
+max_depth = 6 min_samples_leaf = 1 | train 85.96 % | test 77.65 %
+max_depth = 6 min_samples_leaf = 5 | train 85.25 % | test 75.98 %
+max_depth = 6 min_samples_leaf = 10 | train 85.25 % | test 77.65 %
+max_depth = 6 min_samples_leaf = 20 | train 84.27 % | test 77.09 %
+max_depth = 8 min_samples_leaf = 1 | train 86.52 % | test 77.65 %
+max_depth = 8 min_samples_leaf = 5 | train 85.39 % | test 77.65 %
+max_depth = 8 min_samples_leaf = 10 | train 85.25 % | test 77.65 %
+max_depth = 8 min_samples_leaf = 20 | train 84.27 % | test 77.09 %
+max_depth = 10 min_samples_leaf = 1 | train 86.8 % | test 78.77 %
+max_depth = 10 min_samples_leaf = 5 | train 85.39 % | test 77.65 %
+max_depth = 10 min_samples_leaf = 10 | train 85.25 % | test 77.65 %
+max_depth = 10 min_samples_leaf = 20 | train 84.27 % | test 77.09 %
+max_depth = None min_samples_leaf = 1 | train 86.8 % | test 78.21 %
+max_depth = None min_samples_leaf = 5 | train 85.39 % | test 77.65 %
+max_depth = None min_samples_leaf = 10 | train 85.25 % | test 77.65 %
+max_depth = None min_samples_leaf = 20 | train 84.27 % | test 77.09 %
+Best max_depth: 3 Best min_samples_leaf: 1
+Prediction accuracy (Training Set): 83.99 %
+Prediction accuracy (Test Set): 80.45 %

@@ -37,6 +37,8 @@ $$
 - $f(x_i)$ → value predicted by the function (the point on the function line)
 - $\left| y_i - f(x_i) \right|$ → absolute error of a single point
 
+![[loss-function.png]]
+
 ### Data Quality
 
 Data science and machine learning go hand in hand: before even starting the machine learning process, we need really good quality data. Otherwise, it's "Garbage In → Garbage Out".
