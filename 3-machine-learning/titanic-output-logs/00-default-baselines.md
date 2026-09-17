@@ -1,0 +1,24 @@
+HistGradientBoostingClassifier      86.38%  80.45%
+NuSVC                               84.13%  80.45%
+SVC                                 83.99%  80.45%
+AdaBoostClassifier                  84.13%  79.89%
+KNeighborsClassifier                85.25%  79.89%
+LinearDiscriminantAnalysis          82.44%  79.89%
+LinearSVC                           83.43%  79.89%
+LogisticRegression                  83.29%  79.89%
+RidgeClassifier                     82.72%  79.89%
+ExtraTreesClassifier                 86.8%  79.33%
+RandomForestClassifier               86.8%  79.33%
+CategoricalNB                        81.6%  78.77%
+GradientBoostingClassifier          86.52%  78.77%
+BaggingClassifier                   86.52%  78.21%
+DecisionTreeClassifier               86.8%  78.21%
+GaussianProcessClassifier           85.81%  78.21%
+BernoulliNB                         80.76%  77.65%
+GaussianNB                           81.6%  77.65%
+MLPClassifier                       84.97%  77.09%
+MultinomialNB                       79.07%  75.42%
+ComplementNB                        79.49%   74.3%
+SGDClassifier                       70.37%  68.16%
+QuadraticDiscriminantAnalysis       67.13%  62.01%
+RadiusNeighborsClassifier                —       —  FAILED  ValueError: No neighbors found for test samples array([148]), you can try using la

@@ -9,7 +9,116 @@ Decisions are based on **test accuracy**, not training accuracy.
 
 ### Summary
 
-todo
+Top 5 of the 25 models tried, by test accuracy:
+
+| # | Model | Best settings | Train | Test |
+|---|-------|---------------|-------|------|
+| 1 | RadiusNeighborsClassifier | `radius=1, weights="uniform", outlier_label="most_frequent"` | 84.69 % | **82.12 %** |
+| 2 | RandomForestClassifier | `n_estimators=50, max_depth=3` | 84.13 % | 81.56 % |
+| 3 | ExtraTreesClassifier | `n_estimators=50, max_depth=5` | 84.27 % | 81.56 % |
+| 4 | VotingClassifier | `voting="hard"` over 5 models | 84.27 % | 81.56 % |
+| 5 | KNeighborsClassifier | `n_neighbors=16` | 84.97 % | 81.01 % |
+
+- NuSVC (`nu=0.5, gamma=0.1`) ties 5th place at 81.01 %; MultiOutputClassifier's 82.12 % is the same RadiusNeighbors model wrapped, not a separate result
+- the whole top 5 fits in 1.1 percentage points = 2 test passengers out of 179, so the order is mostly luck — the real finding is that every family plateaus at ~84 % train / ~81 % test
+- 86.8 % train accuracy is the hard ceiling: the 712 training passengers have only 138 distinct feature combinations, and some identical passengers had different outcomes
+
+### Default baselines (no tuning)
+
+```python
+import warnings
+from sklearn import (linear_model, discriminant_analysis, svm, neighbors,
+                     gaussian_process, naive_bayes, tree, ensemble, neural_network)
+
+# every model from the log that can be built with no arguments at all
+defaults = [
+  linear_model.LogisticRegression(),
+  linear_model.RidgeClassifier(),
+  linear_model.SGDClassifier(),
+  discriminant_analysis.LinearDiscriminantAnalysis(),
+  discriminant_analysis.QuadraticDiscriminantAnalysis(),
+  svm.SVC(),
+  svm.NuSVC(),
+  svm.LinearSVC(),
+  neighbors.KNeighborsClassifier(),
+  neighbors.RadiusNeighborsClassifier(),
+  gaussian_process.GaussianProcessClassifier(),
+  naive_bayes.GaussianNB(),
+  naive_bayes.MultinomialNB(),
+  naive_bayes.ComplementNB(),
+  naive_bayes.BernoulliNB(),
+  naive_bayes.CategoricalNB(),
+  tree.DecisionTreeClassifier(),
+  ensemble.RandomForestClassifier(),
+  ensemble.ExtraTreesClassifier(),
+  ensemble.GradientBoostingClassifier(),
+  ensemble.HistGradientBoostingClassifier(),
+  ensemble.AdaBoostClassifier(),
+  ensemble.BaggingClassifier(),
+  neural_network.MLPClassifier(),
+]
+
+results = []
+for model in defaults:
+  name = type(model).__name__
+  try:
+    with warnings.catch_warnings():
+      warnings.simplefilter("ignore")   # some defaults raise ConvergenceWarning
+      model.fit(X_train, y_train)
+      train_acc = round(model.score(X_train, y_train) * 100, 2)
+      test_acc = round(model.score(X_test, y_test) * 100, 2)
+    results.append((test_acc, train_acc, name, ""))
+  except Exception as e:
+    results.append((None, None, name, type(e).__name__ + ": " + str(e).split("\n")[0][:70]))
+
+results.sort(key=lambda r: (r[0] is None, -(r[0] or 0), r[2]))
+print(f"{'model':34}{'train':>8}{'test':>8}")
+for test_acc, train_acc, name, err in results:
+  if test_acc is None:
+    print(f"{name:34}{'—':>8}{'—':>8}  FAILED  {err}")
+  else:
+    print(f"{name:34}{train_acc:>7}%{test_acc:>7}%")
+```
+
+Every model built with **no arguments at all**, one run, sorted by test accuracy. `random_state` is left at its default of `None`, so the stochastic models move by a fraction of a point between runs. `VotingClassifier`, `StackingClassifier` and `MultiOutputClassifier` are missing because they have no default form — they require `estimators` / `estimator`.
+
+| Model                          | Train (default) | Test (default) | Test (tuned) | Gain from tuning |
+| ------------------------------ | --------------- | -------------- | ------------ | ---------------- |
+| HistGradientBoostingClassifier | 86.38 %         | **80.45 %**    | 80.45 %      | 0                |
+| NuSVC                          | 84.13 %         | **80.45 %**    | 81.01 %      | +0.56            |
+| SVC                            | 83.99 %         | **80.45 %**    | 80.45 %      | 0                |
+| AdaBoostClassifier             | 84.13 %         | 79.89 %        | 80.45 %      | +0.56            |
+| KNeighborsClassifier           | 85.25 %         | 79.89 %        | 81.01 %      | +1.12            |
+| LinearDiscriminantAnalysis     | 82.44 %         | 79.89 %        | 79.89 %      | 0                |
+| LinearSVC                      | 83.43 %         | 79.89 %        | 79.89 %      | 0                |
+| LogisticRegression             | 83.29 %         | 79.89 %        | 80.45 %      | +0.56            |
+| RidgeClassifier                | 82.72 %         | 79.89 %        | 79.89 %      | 0                |
+| ExtraTreesClassifier           | 86.8 %          | 79.33 %        | 81.56 %      | +2.23            |
+| RandomForestClassifier         | 86.8 %          | 79.33 %        | 81.56 %      | +2.23            |
+| CategoricalNB                  | 81.6 %          | 78.77 %        | 78.77 %      | 0                |
+| GradientBoostingClassifier     | 86.52 %         | 78.77 %        | 80.45 %      | +1.68            |
+| BaggingClassifier              | 86.52 %         | 78.21 %        | 79.89 %      | +1.68            |
+| DecisionTreeClassifier         | 86.8 %          | 78.21 %        | 80.45 %      | +2.24            |
+| GaussianProcessClassifier      | 85.81 %         | 78.21 %        | 79.89 %      | +1.68            |
+| BernoulliNB                    | 80.76 %         | 77.65 %        | 77.65 %      | 0                |
+| GaussianNB                     | 81.6 %          | 77.65 %        | 77.65 %      | 0                |
+| MLPClassifier                  | 84.97 %         | 77.09 %        | 79.89 %      | +2.8             |
+| MultinomialNB                  | 79.07 %         | 75.42 %        | 77.09 %      | +1.67            |
+| ComplementNB                   | 79.49 %         | 74.3 %         | 74.86 %      | +0.56            |
+| SGDClassifier                  | 70.37 %         | 68.16 %        | 79.89 %      | +11.73           |
+| QuadraticDiscriminantAnalysis  | 67.13 %         | 62.01 %        | 78.77 %      | +16.76           |
+| RadiusNeighborsClassifier      | —               | **error**      | 82.12 %      | —                |
+
+Observations:
+- best on defaults is a three-way tie at 80.45 % (= 144 of 179 test passengers): HistGradientBoostingClassifier, NuSVC and SVC. SVC and NuSVC reach it with a smaller train/test gap (about 4 points) than HistGradientBoostingClassifier (6 points), so the two SVMs are the better naive choice
+- 9 of the 23 models that run land on 143 or 144 correct passengers — one passenger apart. Untuned defaults already put most families at ~80 %
+- tuning changed **nothing** for 8 models: their default value was already the best one found (RidgeClassifier `alpha=1`, GaussianNB `var_smoothing=1e-9`, plus SVC, LDA, LinearSVC, BernoulliNB, CategoricalNB, HistGradientBoostingClassifier)
+- the best model overall, RadiusNeighborsClassifier at 82.12 %, **cannot run on defaults at all**: `radius=1.0` with `outlier_label=None` is exactly the combination that raises "No neighbors found for test samples"
+- two models are broken on defaults and rescued by tuning:
+	- QuadraticDiscriminantAnalysis, 62.01 % → 78.77 % (+16.76). The default `reg_param=0` needs an invertible covariance matrix per class, and `Family_Alone + Family_Small + Family_Large` sums to 1 for nearly every passenger (only those with exactly 4 family members fall outside all three, because of the gap between "1 to 3" and "more than 4"), so those columns are almost linearly dependent — the dummy variable trap the notebook warns about. `reg_param > 0` patches the matrix
+	- SGDClassifier, 68.16 % → 79.89 % (+11.73). The default `loss="hinge"` on unscaled features whose ranges differ (0–1 up to 0–5) takes badly sized steps
+- on defaults the trees grow to unlimited depth, so DecisionTreeClassifier, RandomForestClassifier and ExtraTreesClassifier all hit exactly the 86.8 % training ceiling and lose 2+ points of test accuracy. HistGradientBoostingClassifier is the exception among the ensembles because its default `min_samples_leaf=20` keeps the leaves large, while RandomForestClassifier defaults to `min_samples_leaf=1`
+- for a model that already works, tuning is worth at most 2.8 points; its bigger effect is making two unusable models usable
 
 ### Experiment log
 
@@ -302,7 +411,7 @@ Best Result:
 
 ```python
 
-for k in range (2, 101):
+for k in range (1, 100):
 	model = neighbors.RadiusNeighborsClassifier(radius=k)
 	
 	model.fit(X_train, y_train)
@@ -1118,52 +1227,54 @@ Observation:
 
 ## Part 2 – Tuning the best model
 
-**Model:**
+**Model:** RadiusNeighborsClassifier (best test accuracy in Part 1: 82.12 %)
 
-**How it works:**
+**How it work0s:** instead of always asking a fixed number of neighbours like KNeighborsClassifier, it asks *every* training passenger that lies inside a fixed distance (the radius) around the passenger being predicted, and those neighbours vote on the class. Passengers in a crowded part of the data get many voters, passengers in an empty part get few — and one with nobody inside the radius gets no voters at all, which is what `outlier_label` is for.
 
 ### Hyperparameters
 
-| Hyperparameter | What it does | Default | Values tried |
-|----------------|--------------|---------|--------------|
-| | | | |
+| Hyperparameter  | What it does                                                                                                             | Default   | Values tried        |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------ | --------- | ------------------- |
+| `radius`        | How far the neighbourhood reaches. Every training passenger inside this distance votes; everyone outside is ignored.     | `1.0`     | 0.5, 1, 1.5, 2, 3   |
+| `weights`       | `uniform` = one neighbour one vote; `distance` = closer neighbours count more (weight `1/distance`)                      | `uniform` | uniform, distance   |
+| `p`             | Exponent of the Minkowski distance: `1` = Manhattan (sum of the steps in every feature), `2` = Euclidean (straight line) | `2`       | 1, 2                |
+| `outlier_label` | Class predicted for a passenger with no neighbour inside the radius. `None` raises an error instead of predicting.       | `None`    | most_frequent, 0, 1 |
+
+5 × 2 × 2 × 3 = 60 combinations.
 
 ### Code
 
 ```python
-for value in [...]:
-    model = ...
-    model.fit(X_train, y_train)
-    train_acc = round(model.score(X_train, y_train) * 100, 2)
-    test_acc = round(model.score(X_test, y_test) * 100, 2)
-    print(f"{value}: train {train_acc}%, test {test_acc}%")
+best_radius = None
+best_weights = None
+best_p = None
+best_label = None
+best_test_acc = 0
+best_train_acc = 0
+
+for radius in [0.5, 1, 1.5, 2, 3]:
+  for weights in ["uniform", "distance"]:
+    for _p in [1, 2]:
+      for label in ["most_frequent", 0, 1]:
+
+        model = neighbors.RadiusNeighborsClassifier(radius=radius, weights=weights, p=_p, outlier_label=label )
+        model.fit(X_train, y_train)
+
+        train_acc_log = round(model.score(X_train, y_train) * 100, 2)
+        test_acc_log = round(model.score(X_test, y_test) * 100, 2)
+        print("radius =", radius, "weights =", weights, "p =", _p, "label =", label, "| train", train_acc_log, "% | test", test_acc_log, "%")
+
+        # keep this one if it beats the best so far
+        if test_acc_log > best_test_acc:
+          best_radius = radius
+          best_weights = weights
+          best_p = _p
+          best_label = label
+          best_test_acc = test_acc_log
+          best_train_acc = train_acc_log
+
+print("Best radius:", best_radius, "Best weights:", best_weights, "p:", best_p, "Best label:", best_label)
+print("Prediction accuracy (Training Set):", best_train_acc, "%")
+print("Prediction accuracy (Test Set):", best_test_acc, "%")
 ```
 
-### Results
-
-| Hyperparameters | Train acc | Test acc | Notes |
-|-----------------|-----------|----------|-------|
-| | | | |
-
-### Conclusion
-
-**Best hyperparameters:**
-
-**Test accuracy:**
-
-**Why these work best:**
-
----
-
-## Template (copy for a new experiment)
-
-````markdown
-#### N. Model name
-
-```python
-model = ...
-```
-
-- Train: / Test:
-- Observations:
-````
