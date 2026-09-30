@@ -390,3 +390,4 @@ In a CNN the pattern is detected in a 3D vector, RGB, where each layer detects o
 Patterns are **not** encoded as matrices in the network. They are encoded by configuring the input weights and bias of a neuron — i.e. they work just the way neural networks work anyway.
 
 Image processing still needs quite a lot of processing power and samples.
+
