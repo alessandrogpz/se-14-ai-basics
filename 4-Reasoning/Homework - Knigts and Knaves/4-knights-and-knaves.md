@@ -1,20 +1,20 @@
 # Knights and Knaves
 
-**Problem Description:** Every character in these puzzles is either a knight, who always tells the truth, or a knave, who always lies. We are told what each of them says and have to work out who is which using propositional logic.
+**Problem Description:** All of the characters in these puzzles are either a knight – someone who always tells the truth, or a knave – someone who always lies. We are told what each one of them says and need to figure out who is who based on propositional logic.
 
 **Area of AI:** Reasoning
 
 **Applied Algorithms:**
-- Model checking: Go through every possible combination of true and false for all the symbols, throw away the combinations that contradict what we know, and see what is left.
+- Model checking: Check all possible combinations of true or false for all the symbols involved, discard the combinations that go against our knowledge and see what is left.
 
-Each knowledge base exercise has two kinds of statement in it:
+Each knowledge base exercise includes two types of statements:
 
-- The rules of the game: a character is a knight exactly when they are not a knave. Without this the checker has no reason to rule out somebody being both at once.
-- What each character said, written as a biconditional between that character being a knight and their statement being true. If the statement is false then the biconditional forces the speaker to be a knave.
+- Rules of the game: a character is a knight if and only if they are not a knave. If this is not included in the exercise, then the checker would have no way of knowing that a certain person cannot be both at the same time.
+- Statement of what each character said, as a biconditional of being a knight and having said something true. If the statement is false, then the biconditional implies that the character in question is a knave.
 
 **Results:**
-- All four puzzles come out correctly. 
-    - Puzzle 0: A is a knave. 
+- All four exercises are solved successfully.
+    - Puzzle 0: A is a knave.
     - Puzzle 1: A is a knave and B is a knight. 
     - Puzzle 2: A is a knave and B is a knight. 
     - Puzzle 3: A is a knight, B is a knave and C is a knight.
