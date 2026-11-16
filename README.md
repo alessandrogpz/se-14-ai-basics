@@ -26,7 +26,7 @@ And inside each homework folder:
 | file | what it is |
 |---|---|
 | `EXERCISE.md` | what the task was |
-| `README.md` | how to set it up and run it |
+| `README.md` | how to set it up and run it, and where the solution lives |
 | `<unit>-<name>.md` | the high-level description submitted for the assessment |
 
 ## Homework
