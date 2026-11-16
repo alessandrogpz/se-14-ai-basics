@@ -37,6 +37,6 @@ And inside each homework folder:
 | 1 | [Toast Planning](1-planning/Homework%20-%20Toast%20Planning) | Planning | [description](1-planning/Homework%20-%20Toast%20Planning/1-toast-planning.md) | [README](1-planning/Homework%20-%20Toast%20Planning/README.md) |
 | 4 | [Knights and Knaves](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves) | Reasoning | [description](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves/4-knights-and-knaves.md) | [README](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves/README.md) |
 
-The repository also contains the exercises for optimization (`2-optimization/`) and machine
-learning (`3-machine-learning/`). Those are coursework and are not part of this assessment
+The repository also contains the exercises for optimization ([`2-optimization/`](2-optimization)) and machine
+learning ([`3-machine-learning/`](3-machine-learning)). Those are coursework and are not part of this assessment
 submission.

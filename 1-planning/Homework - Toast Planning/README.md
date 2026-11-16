@@ -13,7 +13,7 @@ python main.py
 
 ## Where the solution is
 
-`planning/planner.py`:
+[`planning/planner.py`](planning/planner.py):
 
 | function | algorithm |
 |---|---|
