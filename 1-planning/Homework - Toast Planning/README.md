@@ -19,4 +19,4 @@ python main.py
 |---|---|
 | `random_search` | random choice from the frontier (provided) |
 | `breadth_first_search` | BFS, FIFO frontier |
-| `shortest_toast_time_search` | uniform-cost search (Dijkstra) |
+| `shortest_toast_time_search` | Dijkstra |

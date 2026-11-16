@@ -11,3 +11,8 @@
 python puzzle.py
 ```
 
+
+## Where the solution is
+
+`puzzle.py` — the knowledge bases `knowledge0` through `knowledge3`.
+Nothing in `logic/` was changed.

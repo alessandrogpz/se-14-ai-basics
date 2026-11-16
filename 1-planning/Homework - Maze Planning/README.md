@@ -27,3 +27,8 @@ Mazes `maze1.txt` through `maze7.txt` live in `mazes/` — pass just the filenam
 | `DFS` | depth-first search
 | `BFS` | breadth-first search
 | `HS`  | heuristic search
+
+## Where the solution is
+
+`maze_solver/frontier.py` — all four strategies are chosen inside `select_node()`.
+Nothing else in the project was changed.
