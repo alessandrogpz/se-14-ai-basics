@@ -19,7 +19,7 @@ Pass a maze file and a search algorithm:
 python main.py maze1.txt BFS
 ```
 
-Mazes [`maze1.txt`](mazes/maze1.txt) through [`maze7.txt`](mazes/maze7.txt) live in [`mazes/`](mazes) — pass just the filename, not the folder.
+Mazes `maze1.txt` through `maze7.txt` live in `mazes/` — pass just the filename, not the folder.
 
 | arg | algorithm |
 |---|---|

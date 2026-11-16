@@ -19,4 +19,4 @@ Both of my searches identify a state by its four attributes and deliberately lea
 - Both only expand 9 or 10 states. Dropping the closed set makes the search run forever. There are only 16 different states in the whole problem, but you can wander between them for as long as you like, so there are endless paths through those 16.
 
 **Location:** `1-planning/Homework - Toast Planning/` — the implementation is `breadth_first_search()`
-and `shortest_toast_time_search()` in `planning/planner.py`.
+and `shortest_toast_time_search()` in [`planning/planner.py`](planning/planner.py).

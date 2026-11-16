@@ -19,4 +19,4 @@ Euclidean distance to the goal.
 - HS: Euclidian distance is measured through walls. In maze 4, it performs the shortest possible path in the least ammount of calculations possible, since there are no walls in between the entry and exit node, but this behaviour is not guaranteed. 
 
 **Location:** `1-planning/Homework - Maze Planning/` — the implementation is `select_node()` in
-`maze_solver/frontier.py`.
+[`maze_solver/frontier.py`](maze_solver/frontier.py).
