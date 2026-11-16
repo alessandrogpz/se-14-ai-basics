@@ -31,11 +31,11 @@ And inside each homework folder:
 
 ## Homework
 
-| unit | homework | area of AI | algorithms implemented | hand-in | how to run |
-|---|---|---|---|---|---|
-| 1 | [Maze Planning](1-planning/Homework%20-%20Maze%20Planning) | Planning | depth-first, breadth-first, heuristic search | [description](1-planning/Homework%20-%20Maze%20Planning/1-maze-planning.md) | [README](1-planning/Homework%20-%20Maze%20Planning/README.md) |
-| 1 | [Toast Planning](1-planning/Homework%20-%20Toast%20Planning) | Planning | breadth-first search, uniform-cost search (Dijkstra) | [description](1-planning/Homework%20-%20Toast%20Planning/1-toast-planning.md) | [README](1-planning/Homework%20-%20Toast%20Planning/README.md) |
-| 4 | [Knights and Knaves](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves) | Reasoning | propositional logic model checking | [description](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves/4-knights-and-knaves.md) | [README](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves/README.md) |
+| unit | homework | area of AI | hand-in | how to run |
+|---|---|---|---|---|
+| 1 | [Maze Planning](1-planning/Homework%20-%20Maze%20Planning) | Planning | [description](1-planning/Homework%20-%20Maze%20Planning/1-maze-planning.md) | [README](1-planning/Homework%20-%20Maze%20Planning/README.md) |
+| 1 | [Toast Planning](1-planning/Homework%20-%20Toast%20Planning) | Planning | [description](1-planning/Homework%20-%20Toast%20Planning/1-toast-planning.md) | [README](1-planning/Homework%20-%20Toast%20Planning/README.md) |
+| 4 | [Knights and Knaves](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves) | Reasoning | [description](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves/4-knights-and-knaves.md) | [README](4-Reasoning/Homework%20-%20Knigts%20and%20Knaves/README.md) |
 
 The repository also contains the exercises for optimization (`2-optimization/`) and machine
 learning (`3-machine-learning/`). Those are coursework and are not part of this assessment
