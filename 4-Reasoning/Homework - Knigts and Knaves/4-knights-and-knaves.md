@@ -20,5 +20,5 @@ The algorithm itself was provided. The work was in writing the knowledge bases, 
 
 - Writing `Biconditional(AKnight, <what A said>)` says everything: a knight's statement is true and a knave's is false, both directions at once, and the model checker takes it from there.
 
-**Location:** `4-Reasoning/Homework - Knigts and Knaves/` — the knowledge bases `knowledge0` through
+**Location:** `4-Reasoning/Homework - Knigts and Knaves/` — the implementation of the knowledge bases `knowledge0` through
 `knowledge3` are in `puzzle.py`.
