@@ -25,8 +25,8 @@ And inside each homework folder:
 
 | file | what it is |
 |---|---|
-| `EXERCISE.md` | the brief as handed out — what the task was |
-| `README.md` | how to set it up and run it, and where my solution lives |
+| `EXERCISE.md` | what the task was |
+| `README.md` | how to set it up and run it |
 | `<unit>-<name>.md` | the high-level description submitted for the assessment |
 
 ## Homework
@@ -40,13 +40,3 @@ And inside each homework folder:
 The repository also contains the exercises for optimization (`2-optimization/`) and machine
 learning (`3-machine-learning/`). Those are coursework and are not part of this assessment
 submission.
-
-## Running the homework
-
-Each homework folder has its own README with the detail. In short:
-
-| homework | command |
-|---|---|
-| Maze Planning | `python main.py maze1.txt BFS` |
-| Toast Planning | `python main.py` |
-| Knights and Knaves | `python puzzle.py` |
